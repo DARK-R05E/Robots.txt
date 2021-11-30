@@ -7,7 +7,7 @@ from PIL import Image
 from fpdf import FPDF
 
 def path_traversal_info():
-    print("""    
+    print(r"""    
          __
  _(\    |@@|
 (__/\__ \--/ __
