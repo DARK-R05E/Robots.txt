@@ -5,10 +5,9 @@ import os
 import imgkit
 from PIL import Image
 from fpdf import FPDF
-import time
 
 def path_traversal_info():
-    print(r"""    
+    print("""    
          __
  _(\    |@@|
 (__/\__ \--/ __
@@ -23,12 +22,8 @@ def path_traversal_info():
     os.mkdir(name)
     os.chdir(name)
     pdf = FPDF()
-    pdf.set_auto_page_break(0)
 
     url = sys.argv[1]
-
-    print('target', url)
-    time.sleep(2)
 
     robots_url = url+'/robots.txt'
 
@@ -47,19 +42,9 @@ def path_traversal_info():
             maybe.append(change+'.png')
             try:
                 imgkit.from_url(comb, change+'.png')
-            except KeyboardInterrupt:
-                for image in maybe:
-                    print('\n Detected a cancel input, so i am creating a pdf up until now')
-                    Image.open(image)
-                    pdf.add_page(orientation=orientation)
-                    pdf.image(image, 0, 0, width, height)
-                    pdf.output("yourfile.pdf", "F")
-                    print('     Your file has been created')
-                    time.sleep(5)
-                    break
             except:
                 print('nothing found')
-
+                
     for image in maybe:
         cover = Image.open(image)
         width, height = cover.size
@@ -71,6 +56,5 @@ def path_traversal_info():
         pdf.add_page(orientation=orientation)
         pdf.image(image, 0, 0, width, height)
     pdf.output("yourfile.pdf", "F")
-    print('File created')
 
 path_traversal_info()
